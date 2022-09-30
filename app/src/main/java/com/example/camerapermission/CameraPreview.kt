@@ -69,6 +69,6 @@ class CameraPreview @JvmOverloads constructor(
     }
 
     companion object {
-        private val TAG = "CameraPreview"
+        private const val TAG = "CameraPreview"
     }
 }

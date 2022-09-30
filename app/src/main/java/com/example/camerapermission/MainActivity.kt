@@ -4,9 +4,7 @@ package com.example.camerapermission
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +35,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
         ) {
             // Permission is already available, start camera preview
             startCamera()
-            Toast.makeText(this, "Разрешение предоставлено", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Разрешения нет!", Toast.LENGTH_SHORT).show()
         } else {
             // Permission is missing and must be requested.
             requestCameraPermission()
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
     private fun requestCameraPermission() {
         if (shouldShowRequestPermissionRationaleCompat(Manifest.permission.CAMERA)) {
-            Toast.makeText(this, "Разрешение не предоставлено", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Разрешения нет", Toast.LENGTH_SHORT).show()
 
         } else {
 
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 //                startAppSettings()
 //            }
             // Request the permission. The result will be received in onRequestPermissionResult().
-            Toast.makeText(this, "Разрешение не предоставлено", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Разрешения нет!", Toast.LENGTH_LONG).show()
             requestPermissionsCompat(arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CAMERA)
         }
     }
@@ -68,16 +66,15 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 
     }
 
-    // Функция, открывающая настройки приложения
-    private fun startAppSettings() {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        val uri: Uri = Uri.fromParts(
-            "package",
-            packageName, null
-        )
-        intent.setData(uri)
-        startActivity(intent)
-    }
+//    private fun startAppSettings() {
+//        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//        val uri: Uri = Uri.fromParts(
+//            "package",
+//            packageName, null
+//        )
+//        intent.setData(uri)
+//        startActivity(intent)
+//    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -86,7 +83,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
     ) {
         if (requestCode == PERMISSION_REQUEST_CAMERA) {
             if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Разрешение предоставлено", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Разрешение есть!", Toast.LENGTH_LONG).show()
                 requestPermissionsCompat(
                     arrayOf(Manifest.permission.CAMERA),
                     PERMISSION_REQUEST_CAMERA
@@ -101,7 +98,7 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
 //            }
                 Toast.makeText(
                     this, "Разрешение может быть изменено только в настройках",
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_SHORT
                 ).show()
             }
         }
